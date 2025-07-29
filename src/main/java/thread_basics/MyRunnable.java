@@ -1,6 +1,6 @@
 package thread_basics;
 
-public class MyRunnable implements Runnable {
+class MyRunnable implements Runnable {
 
     /**
      * Runs this operation.
