@@ -15,15 +15,11 @@ public class TicketBookingTest {
                 Thread.currentThread().getName(), 4
         );
 
-        // Create threads representing different users booking tickets
-        var thread1 = new Thread(task, "User-1");
-        var thread2 = new Thread(task, "User-2");
-        var thread3 = new Thread(task, "User-3");
-
-        // Start the threads to execute the ticket booking task concurrently
-        thread1.start();
-        thread2.start();
-        thread3.start();
+        // Create threads representing different users booking tickets and start them
+        // Each thread will attempt to book 4 tickets
+        new Thread(task, "User-1").start();
+        new Thread(task, "User-2").start();
+        new Thread(task, "User-3").start();
     }
 
 }
