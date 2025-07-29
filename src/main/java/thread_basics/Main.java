@@ -1,6 +1,10 @@
 package thread_basics;
 
+import java.util.logging.Logger;
+
 public class Main {
+
+    private static final Logger log = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) throws InterruptedException {
 //        // Create a new thread using the MyThread class
@@ -16,7 +20,7 @@ public class Main {
 //        runnableThread.start();
 
         // Print the current thread's name
-        System.out.println("Main thread: " + Thread.currentThread().getName());
+        log.info("Main thread: " + Thread.currentThread().getName());
 
         var tr1 = new Thread(new Task("Task 1"));
         var tr2 = new Thread(new Task("Task 2"));
@@ -27,6 +31,6 @@ public class Main {
         tr1.join(); // Wait for Task-1 (tr1) to finish
         tr2.join(); // Wait for Task-2 (tr2) to finish
 
-        System.out.println("All tasks completed.");
+        log.info("All tasks completed.");
     }
 }
