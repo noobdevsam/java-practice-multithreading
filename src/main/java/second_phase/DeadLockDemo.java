@@ -60,3 +60,5 @@ class DeadLockDemo {
     }
 
 }
+
+// Fix the deadlock by ensuring that both methods acquire locks in the same order.
