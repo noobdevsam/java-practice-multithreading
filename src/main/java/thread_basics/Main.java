@@ -7,14 +7,14 @@ public class Main {
     private static final Logger log = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) throws InterruptedException {
-        simulate_simple_thread();
+//        simulate_simple_thread();
 //
-        simulate_thread_with_runnable();
+//        simulate_thread_with_runnable();
 //
-        simulate_multithread_execution();
-
-
-        simulate_and_solve_race_conditions();
+//        simulate_multithread_execution();
+//
+//
+//        simulate_and_solve_race_conditions();
     }
 
     private static void simulate_simple_thread() {
