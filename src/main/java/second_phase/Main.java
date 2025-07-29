@@ -1,6 +1,7 @@
 package second_phase;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
 import java.util.logging.Logger;
 
 public class Main {
@@ -11,6 +12,8 @@ public class Main {
 //        simulate_race_condition_fix_with_reentrant_lock();
 
 //        simulate_waiting_with_countdown_latch();
+
+//        simulate_limit_access_with_semaphore();
     }
 
     /**
@@ -87,5 +90,45 @@ public class Main {
 
         // Log a message indicating all tasks are completed
         logger.info("All tasks completed.");
+    }
+
+    /**
+     * Simulates limiting access to a resource using a Semaphore.
+     * This method creates a Semaphore with 2 permits and spawns 5 threads.
+     * Each thread attempts to acquire a permit, performs a simulated task, and then releases the permit.
+     * The Semaphore ensures that at most 2 threads can access the resource concurrently.
+     * Logs are generated to indicate when a permit is acquired and released.
+     */
+    private static void simulate_limit_access_with_semaphore() {
+        // Create a Semaphore with 2 permits
+        var semaphore = new Semaphore(2);
+
+        // Define a task to be executed by each thread
+        Runnable task = () -> {
+            try {
+                // Acquire a permit from the semaphore
+                semaphore.acquire();
+
+                logger.info("Acquired permit: " + Thread.currentThread().getName());
+
+                // Simulate some work with sleep
+                Thread.sleep(1000);
+
+                logger.info("Releasing permit: " + Thread.currentThread().getName());
+
+            } catch (InterruptedException e) {
+                // Handle exception and reset thread's interrupt status
+                Thread.currentThread().interrupt();
+                logger.severe("Thread interrupted: " + e.getMessage());
+            } finally {
+                // Release the permit back to the semaphore
+                semaphore.release();
+            }
+        };
+
+        // Create and start 5 threads to execute the task
+        for (int i = 0; i < 5; i++) {
+            new Thread(task).start();
+        }
     }
 }
