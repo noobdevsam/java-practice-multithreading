@@ -1,5 +1,6 @@
 package thread_basics;
 
+import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 public class Main {
@@ -15,6 +16,8 @@ public class Main {
 //
 //
 //        simulate_and_solve_race_conditions();
+//
+//        simulate_with_executor_service();
     }
 
     private static void simulate_simple_thread() {
@@ -77,5 +80,22 @@ public class Main {
 
         // Print the final count
         log.info("Final count: " + Counter.count);
+    }
+
+    private static void simulate_with_executor_service() {
+        try (var executor = Executors.newFixedThreadPool(5)) {
+
+            for (int i = 0; i < 10; i++) {
+                executor.submit(() -> {
+                    log.info("Current thread: " + Thread.currentThread().getName());
+                });
+            }
+
+            executor.shutdown();
+
+        } catch (Exception e) {
+            log.severe("An error occurred: " + e.getMessage());
+        }
+
     }
 }
