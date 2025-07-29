@@ -14,6 +14,8 @@ public class Main {
 //        simulate_waiting_with_countdown_latch();
 
 //        simulate_limit_access_with_semaphore();
+
+//        simulate_dead_lock();
     }
 
     /**
@@ -130,5 +132,16 @@ public class Main {
         for (int i = 0; i < 5; i++) {
             new Thread(task).start();
         }
+    }
+
+    private static void simulate_dead_lock() {
+
+        var demo = new DeadLockDemo();
+
+        // Create two threads that will run the methods that can cause a deadlock
+        new Thread(demo::method1).start();
+        new Thread(demo::method2).start();
+
+        logger.info("Dead lock started.");
     }
 }
