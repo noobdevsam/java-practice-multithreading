@@ -1,6 +1,6 @@
 package thread_basics;
 
-public class MyThread extends Thread {
+class MyThread extends Thread {
 
     /**
      * This method is run by the thread when it executes. Subclasses of {@code
