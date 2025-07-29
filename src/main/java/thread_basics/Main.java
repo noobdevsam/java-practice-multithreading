@@ -28,8 +28,8 @@ public class Main {
         tr1.start();
         tr2.start();
 
-        tr1.join(); // Wait for Task-1 (tr1) to finish
-        tr2.join(); // Wait for Task-2 (tr2) to finish
+        tr1.join(); // Wait for Task-2 (tr2) to finish
+        tr2.join(); // Wait for Task-1 (tr1) to finish
 
         log.info("All tasks completed.");
     }
