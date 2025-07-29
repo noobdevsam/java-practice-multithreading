@@ -3,6 +3,7 @@ package thread_basics;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
 import java.util.logging.Logger;
 
 public class Main {
@@ -24,6 +25,14 @@ public class Main {
 //        simulate_with_future_and_callable();
 //
 //        simulate_parallel_processing_with_callable();
+//
+        /*
+         * Both approaches run tasks in parallel using multiple threads.
+         * Use ForkJoinPool for custom recursive tasks,
+         * and parallelStream() for simple collection processing.
+         * */
+//        simulate_parallel_processing_with_fork_join();
+//        simulate_parallel_processing_with_parallel_stream();
     }
 
     private static void simulate_simple_thread() {
@@ -165,5 +174,32 @@ public class Main {
             log.severe("An error occurred: " + e.getMessage());
         }
 
+    }
+
+    // Simulate parallel processing using ForkJoinPool
+    private static void simulate_parallel_processing_with_fork_join() {
+        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+        try (var pool = new ForkJoinPool()) {
+            var result = pool.invoke(
+                    new SumTask(arr, 0, arr.length)
+            );
+
+            log.info("Sum of array elements: " + result);
+        } catch (Exception e) {
+            log.severe("An error occurred: " + e.getMessage());
+        }
+    }
+
+    private static void simulate_parallel_processing_with_parallel_stream() {
+        var numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+        // Using parallel stream to sum the elements of the array
+        var sum = numbers
+                .parallelStream()
+                .mapToInt(Integer::intValue)
+                .sum();
+
+        log.info("Sum using parallel stream: " + sum);
     }
 }
