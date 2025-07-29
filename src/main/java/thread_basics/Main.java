@@ -1,5 +1,6 @@
 package thread_basics;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
@@ -21,6 +22,8 @@ public class Main {
 //        simulate_with_executor_service();
 //
 //        simulate_with_future_and_callable();
+//
+//        simulate_parallel_processing_with_callable();
     }
 
     private static void simulate_simple_thread() {
@@ -119,6 +122,45 @@ public class Main {
             log.info("Result from Callable: " + result);
 
             executor.shutdown();
+        } catch (Exception e) {
+            log.severe("An error occurred: " + e.getMessage());
+        }
+
+    }
+
+    // Simulate parallel processing with multiple Callable tasks
+    // This demonstrates how to run multiple tasks in parallel and collect their results
+    private static void simulate_parallel_processing_with_callable() {
+
+        var tasks = List.of(
+                () -> {
+                    Thread.sleep(50);
+                    return "Result from Task 1";
+                },
+                () -> {
+                    Thread.sleep(70);
+                    return "Result from Task 2";
+                },
+                () -> {
+                    Thread.sleep(30);
+                    return "Result from Task 3";
+                },
+                (Callable<String>) () -> {
+                    Thread.sleep(40);
+                    return "Result from Task 4";
+                }
+        );
+
+        try (var executor = Executors.newFixedThreadPool(4)) {
+
+            var futures = executor.invokeAll(tasks);
+
+            for (var future : futures) {
+                log.info(future.get());
+            }
+
+            executor.shutdown();
+
         } catch (Exception e) {
             log.severe("An error occurred: " + e.getMessage());
         }
