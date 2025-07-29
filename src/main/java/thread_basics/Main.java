@@ -1,5 +1,6 @@
 package thread_basics;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
@@ -18,6 +19,8 @@ public class Main {
 //        simulate_and_solve_race_conditions();
 //
 //        simulate_with_executor_service();
+//
+//        simulate_with_future_and_callable();
     }
 
     private static void simulate_simple_thread() {
@@ -93,6 +96,29 @@ public class Main {
 
             executor.shutdown();
 
+        } catch (Exception e) {
+            log.severe("An error occurred: " + e.getMessage());
+        }
+
+    }
+
+    // Return a result from a Callable task using Future
+    // This simulates a task that returns a result after some processing
+    private static void simulate_with_future_and_callable() {
+        Callable<String> task = () -> {
+            Thread.sleep(1000); // Simulate some work
+            return "Task completed";
+        };
+
+        try (var executor = Executors.newSingleThreadExecutor()) {
+            var future = executor.submit(task);
+
+            // This will block until the task is complete
+            String result = future.get();
+
+            log.info("Result from Callable: " + result);
+
+            executor.shutdown();
         } catch (Exception e) {
             log.severe("An error occurred: " + e.getMessage());
         }
