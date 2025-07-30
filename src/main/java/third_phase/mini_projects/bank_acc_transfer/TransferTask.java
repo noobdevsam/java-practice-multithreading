@@ -43,7 +43,7 @@ class TransferTask implements Runnable {
 
         // Synchronize on both accounts to prevent deadlock and ensure thread safety
         // The order of synchronization is important to avoid deadlocks
-        
+
         synchronized (fromAccount) {
             synchronized (toAccount) {
                 // Check if the source account has sufficient balance
@@ -57,6 +57,10 @@ class TransferTask implements Runnable {
                     // Log the transfer details
                     logger.info(Thread.currentThread().getName() + " transferred " + amount + " from "
                             + fromAccount.getName() + " to " + toAccount.getName());
+                    logger.info(Thread.currentThread().getName() + " transfer completed");
+
+                    logger.info(fromAccount.getName() + " now has a balance of " + fromAccount.getBalance());
+                    logger.info(toAccount.getName() + " now has a balance of " + toAccount.getBalance());
                 }
             }
         }
