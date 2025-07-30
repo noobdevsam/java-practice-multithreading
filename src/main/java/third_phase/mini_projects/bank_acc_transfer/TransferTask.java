@@ -46,23 +46,27 @@ class TransferTask implements Runnable {
 
         synchronized (fromAccount) {
             synchronized (toAccount) {
-                // Check if the source account has sufficient balance
-                if (fromAccount.getBalance() >= amount) {
-                    // Withdraw the amount from the source account
-                    fromAccount.withdraw(amount);
-
-                    // Deposit the amount into the destination account
-                    toAccount.deposit(amount);
-
-                    // Log the transfer details
-                    logger.info(Thread.currentThread().getName() + " transferred " + amount + " from "
-                            + fromAccount.getName() + " to " + toAccount.getName());
-                    logger.info(Thread.currentThread().getName() + " transfer completed");
-
-                    logger.info(fromAccount.getName() + " now has a balance of " + fromAccount.getBalance());
-                    logger.info(toAccount.getName() + " now has a balance of " + toAccount.getBalance());
-                }
+                performTransfer();
             }
+        }
+    }
+
+    private void performTransfer() {
+        // Check if the source account has sufficient balance
+        if (fromAccount.getBalance() >= amount) {
+            // Withdraw the amount from the source account
+            fromAccount.withdraw(amount);
+
+            // Deposit the amount into the destination account
+            toAccount.deposit(amount);
+
+            // Log the transfer details
+            logger.info(Thread.currentThread().getName() + " transferred " + amount + " from "
+                    + fromAccount.getName() + " to " + toAccount.getName());
+            logger.info(Thread.currentThread().getName() + " transfer completed");
+
+            logger.info(fromAccount.getName() + " now has a balance of " + fromAccount.getBalance());
+            logger.info(toAccount.getName() + " now has a balance of " + toAccount.getBalance());
         }
     }
 }
