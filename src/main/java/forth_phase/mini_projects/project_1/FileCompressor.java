@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The FileCompressor class provides functionality to compress files in a directory
@@ -55,8 +56,9 @@ class FileCompressor {
      * Shuts down the thread pool used for compression tasks.
      * This method should be called to release resources when the FileCompressor is no longer needed.
      */
-    public void shutdown() {
+    public void shutdown() throws InterruptedException {
         executor.shutdown();
+        executor.awaitTermination(1, TimeUnit.MINUTES);
     }
 
 }
