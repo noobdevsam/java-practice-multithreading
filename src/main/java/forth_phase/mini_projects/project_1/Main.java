@@ -24,8 +24,7 @@ public class Main {
 
             var start = System.currentTimeMillis();
 
-            // compressor.compressDirectory(inputDir, outputDir);
-            compressor.compressAllFilesToSingleGz(inputDir, outputDir);
+            compressor.compressDirectory(inputDir, outputDir);
 
             compressor.shutdown();
 
