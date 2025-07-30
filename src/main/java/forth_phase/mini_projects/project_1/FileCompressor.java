@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
  * The FileCompressor class provides functionality to compress files in a directory
  * using a thread pool for concurrent processing.
  */
-public class FileCompressor {
+class FileCompressor {
 
     private final ExecutorService executor;
 
