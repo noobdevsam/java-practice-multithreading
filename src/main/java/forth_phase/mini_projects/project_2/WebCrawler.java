@@ -14,7 +14,7 @@ class WebCrawler {
         this.executorService = Executors.newFixedThreadPool(maxThreads);
     }
 
-    private void crawl(String seedUrl, int maxDepth) throws InterruptedException {
+    public void crawl(String seedUrl, int maxDepth) throws InterruptedException {
         executorService.submit(
                 new CrawlTask(seedUrl, maxDepth, visitedUrls, executorService)
         );
