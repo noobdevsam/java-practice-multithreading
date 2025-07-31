@@ -36,6 +36,59 @@ class FilterUtils {
         return result;
     }
 
+    /**
+     * Applies an invert filter to the given image.
+     *
+     * @param original The original BufferedImage to be processed.
+     * @return A new BufferedImage with the invert filter applied.
+     * <p>
+     * This method iterates over each pixel in the original image, inverts the RGB components,
+     * and sets the new inverted value in the resulting image.
+     */
+    public static BufferedImage applyInvert(BufferedImage original) {
+
+        // Create a new BufferedImage to store the result
+        var result = new BufferedImage(
+                original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_RGB
+        );
+
+        // Iterate over each pixel in the original image
+        for (int y = 0; y < original.getHeight(); y++) {
+
+            for (int x = 0; x < original.getWidth(); x++) {
+
+                // Process each pixel to apply the invert filter
+                make_invert(original, x, y, result);
+
+            }
+
+        }
+
+        // Return the processed image
+        return result;
+
+    }
+
+    private static void make_invert(BufferedImage original, int x, int y, BufferedImage result) {
+
+        // Get the RGB value of the current pixel
+        var rgb = original.getRGB(x, y);
+
+        // Invert the RGB values
+        // The inversion is done by subtracting each RGB component from 255
+        // This effectively flips the color, turning white to black, black to white,
+        // and other colors to their complementary colors.
+        var r = 255 - ((rgb >> 16) & 0xFF);
+        var g = 255 - ((rgb >> 8) & 0xFF);
+        var b = 255 - (rgb & 0xFF);
+
+        // Combine the inverted RGB components back into a single integer
+        var newRgb = (r << 16) | (g << 8) | b;
+
+        // Set the new RGB value in the result image
+        result.setRGB(x, y, newRgb);
+    }
+
     private static void make_grayscale(BufferedImage original, int x, int y, BufferedImage result) {
 
         // Get the RGB value of the current pixel
