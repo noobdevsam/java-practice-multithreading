@@ -25,5 +25,6 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>org.jsoup</groupId>
     <artifactId>jsoup</artifactId>
+    <version>1.21.1</version>
 </dependency>
 ```
