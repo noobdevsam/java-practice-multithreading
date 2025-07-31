@@ -69,6 +69,14 @@ class FilterUtils {
 
     }
 
+    /**
+     * Applies an invert filter to a specific pixel in the image.
+     *
+     * @param original The original BufferedImage to be processed.
+     * @param x        The x-coordinate of the pixel.
+     * @param y        The y-coordinate of the pixel.
+     * @param result   The BufferedImage where the inverted value will be set.
+     */
     private static void make_invert(BufferedImage original, int x, int y, BufferedImage result) {
 
         // Get the RGB value of the current pixel
@@ -89,6 +97,14 @@ class FilterUtils {
         result.setRGB(x, y, newRgb);
     }
 
+    /**
+     * Applies a grayscale filter to a specific pixel in the image.
+     *
+     * @param original The original BufferedImage to be processed.
+     * @param x        The x-coordinate of the pixel.
+     * @param y        The y-coordinate of the pixel.
+     * @param result   The BufferedImage where the grayscale value will be set.
+     */
     private static void make_grayscale(BufferedImage original, int x, int y, BufferedImage result) {
 
         // Get the RGB value of the current pixel
