@@ -2,9 +2,6 @@ package forth_phase.mini_projects.project_3;
 
 import java.awt.image.BufferedImage;
 
-/**
- * Utility class for applying image filters.
- */
 class FilterUtils {
 
     /**
@@ -13,11 +10,11 @@ class FilterUtils {
      * @param original The original BufferedImage to be processed.
      * @return A new BufferedImage with the grayscale filter applied.
      * <p>
-     * The grayscale filter calculates the average of the red, green, and blue
-     * components of each pixel and sets all three components to this average,
-     * resulting in a grayscale image.
+     * This method iterates over each pixel in the original image, extracts the RGB components,
+     * calculates the grayscale value, and sets the new grayscale value in the resulting image.
      */
     public static BufferedImage applyGrayScale(BufferedImage original) {
+
         // Create a new BufferedImage to store the result
         var result = new BufferedImage(
                 original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_RGB
@@ -28,8 +25,11 @@ class FilterUtils {
 
             for (int x = 0; x < original.getWidth(); x++) {
 
+                // Process each pixel to apply the grayscale filter
                 make_grayscale(original, x, y, result);
+
             }
+
         }
 
         // Return the processed image
