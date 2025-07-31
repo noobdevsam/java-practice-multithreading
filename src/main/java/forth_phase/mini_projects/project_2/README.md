@@ -28,3 +28,10 @@ Add the following dependency to your `pom.xml`:
     <version>1.21.1</version>
 </dependency>
 ```
+
+## N.B:
+
+- Run the project as a single java project, not as a Spring Boot application.
+- Need to add the required dependency as a jar file in the classpath from maven repository if adding in pom.xml is not
+  possible or not working.
+- And it will work as a console application.
