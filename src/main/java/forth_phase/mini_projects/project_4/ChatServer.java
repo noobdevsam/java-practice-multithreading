@@ -46,7 +46,6 @@ public class ChatServer {
             throw new RuntimeException(e); // Handle I/O errors during server operation.
         } finally {
             threadPool.shutdown(); // Shut down the thread pool.
-            threadPool.close(); // Close the thread pool resources.
         }
 
     }
