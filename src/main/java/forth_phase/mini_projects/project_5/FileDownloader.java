@@ -21,9 +21,19 @@ class FileDownloader implements Callable<String> {
     @Override
     public String call() throws Exception {
 
-        try (var in = new URL(fileUrl).openStream();
-             var out = new FileOutputStream(destinationPath)) {
+        // A byte array buffer is created to hold the data read from the input stream.
+        // The size of the buffer is set to 4096 bytes (4 KB), which is a common size for buffering data
+        // to optimize read/write operations. This buffer will be used to read chunks of data from the input stream
+        // and write them to the output stream (out).
+        // The output stream (out) is created by opening a file output stream to the specified
+        // destinationPath. This stream allows writing data to a file on the local filesystem.
 
+        // The input stream (in) is created by opening a connection to the URL specified by fileUrl.
+        // This stream allows reading data from the URL, which is expected to be a file.
+
+        try (var in = new URL(fileUrl).openStream();
+             var out = new FileOutputStream(destinationPath)
+        ) {
             byte[] buffer = new byte[4096];
             int bytesRead;
 
