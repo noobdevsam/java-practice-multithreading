@@ -7,10 +7,30 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.concurrent.Executors;
 
 public class VirtualFileDownloaderImplB implements VirtualFileDownloader {
 
     private static final int MAX_RETRIES = 3;
+
+    public static void main(String[] args) {
+        List<String> urls = List.of(
+                "https://example.com/file1.txt",
+                "https://example.com/file2.txt",
+                "https://example.com/file3.txt"
+        );
+
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            for (var url : urls) {
+                executor.submit(() -> {
+                    downloadWithRetry(url);
+                });
+            }
+
+            executor.shutdown();
+        }
+    }
 
     // performs the download operation with retry logic
     private static void downloadWithRetry(String urlString) {
