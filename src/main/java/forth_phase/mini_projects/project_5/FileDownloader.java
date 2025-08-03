@@ -2,7 +2,7 @@ package forth_phase.mini_projects.project_5;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
 import java.util.concurrent.Callable;
 
 class FileDownloader implements Callable<String> {
@@ -31,7 +31,7 @@ class FileDownloader implements Callable<String> {
         // The input stream (in) is created by opening a connection to the URL specified by fileUrl.
         // This stream allows reading data from the URL, which is expected to be a file.
 
-        try (var in = new URL(fileUrl).openStream();
+        try (var in = URI.create(fileUrl).toURL().openStream();
              var out = new FileOutputStream(destinationPath)
         ) {
             byte[] buffer = new byte[4096];
