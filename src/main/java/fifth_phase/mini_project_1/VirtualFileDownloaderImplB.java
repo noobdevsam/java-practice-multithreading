@@ -37,7 +37,7 @@ public class VirtualFileDownloaderImplB implements VirtualFileDownloader {
 
         for (int attempt = 0; attempt <= MAX_RETRIES; attempt++) {
             try {
-                downloadWithRetry(urlString);
+                new VirtualFileDownloaderImplB().simpleDownloadFile(urlString);
                 return;
             } catch (Exception e) {
                 System.err.printf("Attempt %d failed for %s: %s%n", attempt, urlString, e.getMessage());
@@ -86,13 +86,22 @@ public class VirtualFileDownloaderImplB implements VirtualFileDownloader {
 
                 if (contentLength > 0) {
                     int progress = (int) ((totalBytesRead * 100) / contentLength); // Calculate progress percentage
-                    System.out.printf("Progress %s: %d%%\r ", fileName, progress);
+                    System.out.printf("Progress %s: %d%%\n ", fileName, progress);
                 } else {
-                    System.out.printf("Progress %s: %d KB\r ", fileName, (totalBytesRead / 1024)); // Display progress in KB
+                    System.out.printf("Progress %s: %d KB\n ", fileName, (totalBytesRead / 1024)); // Display progress in KB
                 }
             }
         }
 
+        // Close the connection
+        connection.disconnect();
+
         System.out.println("\nDownload completed: " + fileName);
+
+        // Check if the file was downloaded successfully
+        if (Files.exists(outputPath)) {
+            // display downloaded file location
+            System.out.println("File saved to: " + outputPath.toAbsolutePath());
+        }
     }
 }
