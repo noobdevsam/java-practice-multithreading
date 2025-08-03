@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.concurrent.Executors;
 
 public class VirtualFileDownloaderImplA implements VirtualFileDownloader {
 
@@ -18,6 +20,25 @@ public class VirtualFileDownloaderImplA implements VirtualFileDownloader {
             System.out.println("Downloaded = " + fileName);
         } catch (IOException e) {
             System.err.println("Error downloading: " + urlString + " - " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        List<String> urls = List.of(
+                "https://example.com/file1.txt",
+                "https://example.com/file2.txt"
+        );
+
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            for (var url : urls) {
+                executor.submit(
+                        () -> new VirtualFileDownloaderImplA().simpleDownloadFile(url)
+                );
+            }
+
+            executor.shutdown();
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
         }
     }
 }
