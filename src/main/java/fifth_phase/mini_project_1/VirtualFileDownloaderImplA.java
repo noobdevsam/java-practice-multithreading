@@ -16,6 +16,8 @@ public class VirtualFileDownloaderImplA implements VirtualFileDownloader {
         System.out.println("Starting download: " + fileName + " on: " + Thread.currentThread());
 
         try (var in = URI.create(urlString).toURL().openStream()) {
+            // Ensure the downloads directory exists in the current working directory
+            Files.createDirectories(Paths.get("downloads"));
             Files.copy(in, Paths.get("downloads", fileName));
             System.out.println("Downloaded = " + fileName);
         } catch (IOException e) {
