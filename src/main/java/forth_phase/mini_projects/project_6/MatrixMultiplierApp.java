@@ -6,7 +6,7 @@ import java.util.concurrent.ForkJoinPool;
 public class MatrixMultiplierApp {
 
     public static void main(String[] args) {
-        var size = 1000; // Size or dimension of the matrices
+        var size = 20; // Size or dimension of the matrices
 
         var A = generateMatrix(size); // Initialize matrix A
         var B = generateMatrix(size); // Initialize matrix B
@@ -31,6 +31,10 @@ public class MatrixMultiplierApp {
             System.out.println("Time taken: " + (end - start) + " ms");
         }
 
+        printMatrix(A, "A");
+        printMatrix(B, "B");
+        printMatrix(C, "C");
+
     }
 
     private static double[][] generateMatrix(int size) {
@@ -48,6 +52,17 @@ public class MatrixMultiplierApp {
 
         return mat;
 
+    }
+
+    private static void printMatrix(double[][] matrix, String name) {
+        System.out.println("Matrix " + name + ":");
+        for (double[] row : matrix) {
+            for (double val : row) {
+                System.out.printf("%8.3f ", val);
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
 }
