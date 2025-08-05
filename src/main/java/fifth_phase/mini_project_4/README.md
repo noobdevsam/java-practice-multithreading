@@ -1,4 +1,4 @@
-# More use of `ReentrantLock` with virtual threads for fairness and performance
+# More use of `ReentrantLock` with threads for fairness and performance
 
 ---
 
