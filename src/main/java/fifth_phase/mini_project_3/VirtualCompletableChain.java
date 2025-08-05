@@ -2,16 +2,12 @@ package fifth_phase.mini_project_3;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
-import java.util.logging.Logger;
 
 /**
  * The VirtualCompletableChain class demonstrates the use of virtual threads
  * and CompletableFuture to execute asynchronous tasks in a chain.
  */
 public class VirtualCompletableChain {
-
-    // Logger instance for logging messages
-    private static final Logger logger = Logger.getLogger(VirtualCompletableChain.class.getName());
 
     /**
      * The main method initializes a virtual thread executor and executes
