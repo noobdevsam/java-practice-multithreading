@@ -38,7 +38,7 @@ public record FairnessTest(ReentrantLock lock) {
                 lock.lock(); // Acquire the lock
                 try {
                     System.out.println(name + " acquired the lock"); // Log lock acquisition
-                    Thread.sleep(50); // Simulate work while holding the lock
+                    Thread.sleep(2000); // Simulate work while holding the lock
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt(); // Handle thread interruption
                 } finally {
